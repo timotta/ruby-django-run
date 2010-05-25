@@ -3,15 +3,15 @@ class Django
   def initialize(args)
     @python = 'python'
     @projeto = args[:app]
-    @final = 'ruby-django-run-final'
+    @markup_end_code = 'ruby-django-run-final'
   end
 
   def arruma_identacao(codigo)
     sem_linha_vazia = codigo.split("\n").select { |linha| linha.strip.size > 0 }
     caracteres_a_remover = 0
     sem_linha_vazia[0].chars.each do |c| 
-	break unless [" ","\t"].include?(c)
-	caracteres_a_remover+=1
+    	break unless [" ","\t"].include?(c)
+    	caracteres_a_remover+=1
     end
     sem_linha_vazia.collect { |linha| linha[caracteres_a_remover, linha.size] }.join("\n")
   end
@@ -25,7 +25,7 @@ import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 #{codigo}
-print "#{@final}",
+print "#{@markup_end_code}",
 eos
   end
 
@@ -38,7 +38,7 @@ eos
   end
 
   def remove_last_line(text)
-    text = text.gsub("#{@final}\n",'')
+    text = text.gsub("#{@markup_end_code}\n",'')
     return text[0..text.size-2]
   end
 
