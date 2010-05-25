@@ -6,6 +6,7 @@ A gem to execute django code inside a ruby code
 
 First you have to create a django object:
 
+  require 'django'
   @django = Django.new :app => '/projects/myproject'
 
 Then you run the django code using ruby strings: 
@@ -16,8 +17,25 @@ Then you run the django code using ruby strings:
     print tiago.name
   eos
 
-The method return everything that are printed on the django code. So the example above will return "tiago" and put it into printed variable.
+The method return everything that are printed on the django code. So the 
+example above will return "tiago" and put it into printed variable.
 
+== How to install
+
+I could not push the gem into gemcutter, so for now you have to clone the
+project
+
+  git clone git@github.com:timotta/ruby-django-run.git
+  
+Install the echoe gem:
+
+  gem install echoe
+  
+And install the ruby-django-run gem:
+
+  cd ruby-django-run 
+  rake install
+ 
 == Configuration
 
 @django = Django.new :app => '/projects/myproject', :python => '/bin/python'
@@ -27,6 +45,7 @@ The method return everything that are printed on the django code. So the example
   
 == TODO
 
+* Publish the gem on gemcutter
 * Better way to catch errors
 * A way to share python objects
   
