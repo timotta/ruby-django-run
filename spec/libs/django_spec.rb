@@ -44,4 +44,8 @@ describe 'Django' do
     end  
     fail("should excepted an django error") if falhou
   end
+  it 'should permits to configure the python executable' do
+    @django = Django.new :app => File.dirname(__FILE__) + '/../projetodjango', :python => 'my-executable'
+    @django.send(:command_line,'code').should == 'my-executable -c "code" 2> /dev/null'
+  end
 end

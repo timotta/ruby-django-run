@@ -1,17 +1,27 @@
 class Django
 
   def initialize(args)
-    @python = 'python'
+    @python = args[:python] ? args[:python] : 'python'
     @app_django = args[:app]
     @markup_end_code = 'ruby-django-run-final'
   end
 
+  def run(code)
+    prepared_code = prepares_code(code)
+    command = command_line prepared_code
+    printed = `#{command}`
+    raise_exception command if has_django_error printed
+    remove_last_line printed
+  end
+  
+  private
+  
   def prepares_identation(code)
     sem_linha_vazia = code.split("\n").select { |linha| linha.strip.size > 0 }
     caracteres_a_remover = 0
     sem_linha_vazia[0].chars.each do |c| 
-    	break unless [" ","\t"].include?(c)
-    	caracteres_a_remover+=1
+      break unless [" ","\t"].include?(c)
+      caracteres_a_remover+=1
     end
     sem_linha_vazia.collect { |linha| linha[caracteres_a_remover, linha.size] }.join("\n")
   end
@@ -25,7 +35,7 @@ import settings
 from django.core.management import setup_environ
 setup_environ(settings)
 #{code}
-print "#{@markup_end_code}",
+print "#{@markup_end_code}"
 eos
   end
 
@@ -47,16 +57,14 @@ eos
     return ! text.end_with?("#{@final}\n")
   end
 
-  def raise_exception(codigo)
-    raise "Error on this code:\n\n#{codigo}\n"
+  def raise_exception(code)
+    raise "Error on this code:\n\n#{code}\n"
   end
 
-  def run(code)
-    prepared_code = prepares_code(code)
-    printed = `#{@python} -c \"#{prepared_code}\" 2> /dev/null`
-    raise_exception prepared_code if has_django_error printed
-    remove_last_line printed
+  def command_line(code)
+    "#{@python} -c \"#{code}\" 2> /dev/null"
   end
+  
 end
 
 
