@@ -7,8 +7,7 @@ class Django
   end
 
   def run(code)
-    prepared_code = prepares_code(code)
-    command = command_line prepared_code
+    command = command_line prepares_code code
     printed = `#{command}`
     raise_exception command if has_django_error printed
     remove_last_line printed
