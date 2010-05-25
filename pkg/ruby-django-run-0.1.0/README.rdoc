@@ -25,7 +25,7 @@ example above will return "tiago" and put it into printed variable.
 I could not push the gem into gemcutter, so for now you have to clone the
 project
 
-  git clone git@github.com:timotta/ruby-django-run.git
+  git clone git://github.com/timotta/ruby-django-run.git
   
 Install the echoe gem:
 
