@@ -6,15 +6,15 @@ A gem to execute code of your django app inside ruby environment
 
 First you have to create a django object:
 
-@django = Django.new :app => '/projects/myproject'
+  @django = Django.new :app => '/projects/myproject'
 
 Then you run the django code using ruby strings: 
 
-printed = @django.run(<<-eos)
-  from people.models import Person
-  tiago = Person.objects.create(name='tiago')
-  print tiago.name
-eos
+  printed = @django.run(<<-eos)
+    from people.models import Person
+    tiago = Person.objects.create(name='tiago')
+    print tiago.name
+  eos
 
 The method return everything that are printed on the django code. So the example above will return "tiago" and put it into @printed variable.
 
