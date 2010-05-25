@@ -28,7 +28,7 @@ The method return everything that are printed on the django code. So the example
 == TODO
 
 * Better way to catch errors
-* Share python objects between two executes
+* A way to share python objects
   
 == Contributors
 
