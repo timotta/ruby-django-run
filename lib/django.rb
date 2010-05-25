@@ -2,7 +2,7 @@ class Django
 
   def initialize(args)
     @python = 'python'
-    @projeto = args[:app]
+    @app_django = args[:app]
     @markup_end_code = 'ruby-django-run-final'
   end
 
@@ -20,7 +20,7 @@ class Django
 <<-eos
 # -*- coding: utf-8 -*-
 import sys
-sys.path.append("#{@projeto}")
+sys.path.append("#{@app_django}")
 import settings
 from django.core.management import setup_environ
 setup_environ(settings)
