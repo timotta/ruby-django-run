@@ -1,6 +1,6 @@
 = ruby-django-run
 
-A gem to execute code of your django app inside ruby environment
+A gem to execute django code inside a ruby code
 
 == How it works
 
@@ -16,14 +16,14 @@ Then you run the django code using ruby strings:
     print tiago.name
   eos
 
-The method return everything that are printed on the django code. So the example above will return "tiago" and put it into @printed variable.
+The method return everything that are printed on the django code. So the example above will return "tiago" and put it into printed variable.
 
 == Configuration
 
 @django = Django.new :app => '/projects/myproject', :python => '/bin/python'
 
-:app -> Folder where the settings.py and manage.py of your django app are.
-:python -> Python executable path. If you ommit this parameter we will assume that "python".
+* :app -> Folder where the settings.py and manage.py of your django app are.
+* :python -> Python executable path. If you ommit this parameter we will assume that "python".
   
 == TODO
 
