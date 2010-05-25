@@ -1,0 +1,5 @@
+--colour
+--format progress
+--loadby mtime
+--reverse
+--format html:tmp/specs/index.html
