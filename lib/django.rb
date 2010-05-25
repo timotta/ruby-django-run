@@ -6,8 +6,8 @@ class Django
     @markup_end_code = 'ruby-django-run-final'
   end
 
-  def arruma_identacao(codigo)
-    sem_linha_vazia = codigo.split("\n").select { |linha| linha.strip.size > 0 }
+  def prepares_identation(code)
+    sem_linha_vazia = code.split("\n").select { |linha| linha.strip.size > 0 }
     caracteres_a_remover = 0
     sem_linha_vazia[0].chars.each do |c| 
     	break unless [" ","\t"].include?(c)
@@ -16,7 +16,7 @@ class Django
     sem_linha_vazia.collect { |linha| linha[caracteres_a_remover, linha.size] }.join("\n")
   end
 
-  def importa_django(codigo)
+  def imports_django(code)
 <<-eos
 # -*- coding: utf-8 -*-
 import sys
@@ -24,17 +24,17 @@ sys.path.append("#{@app_django}")
 import settings
 from django.core.management import setup_environ
 setup_environ(settings)
-#{codigo}
+#{code}
 print "#{@markup_end_code}",
 eos
   end
 
-  def escapa_aspas(codigo)
+  def escapes_quotes(codigo)
     codigo.gsub('"','\"')
   end
 
-  def prepara_codigo(codigo)
-    escapa_aspas(importa_django(arruma_identacao(codigo)))
+  def prepares_code(code)
+    escapes_quotes(imports_django(prepares_identation(code)))
   end
 
   def remove_last_line(text)
@@ -51,10 +51,10 @@ eos
     raise "Error on this code:\n\n#{codigo}\n"
   end
 
-  def run(codigo)
-    codigo_preparado = prepara_codigo(codigo)
-    printed = `#{@python} -c \"#{codigo_preparado}\" 2> /dev/null`
-    raise_exception codigo_preparado if has_django_error printed
+  def run(code)
+    prepared_code = prepares_code(code)
+    printed = `#{@python} -c \"#{prepared_code}\" 2> /dev/null`
+    raise_exception prepared_code if has_django_error printed
     remove_last_line printed
   end
 end
